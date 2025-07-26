@@ -2,10 +2,10 @@ import streamlit as st
 import pickle
 import numpy as np
 
-# Load the model
+# Load model
 model = pickle.load(open("model.pkl", "rb"))
 
-# Crop dictionary (ID to Name)
+# Crop dictionary
 crop_dict = {
     1: "Rice", 2: "Maize", 3: "Jute", 4: "Cotton", 5: "Coconut", 6: "Papaya", 7: "Orange",
     8: "Apple", 9: "Muskmelon", 10: "Watermelon", 11: "Grapes", 12: "Mango", 13: "Banana",
@@ -13,16 +13,21 @@ crop_dict = {
     19: "Pigeonpeas", 20: "Kidneybeans", 21: "Chickpea", 22: "Coffee"
 }
 
-# Minimal CSS styling
+# CSS styling
 st.markdown("""
     <style>
     .main {
-        max-width: 700px;
+        max-width: 750px;
         margin: auto;
         padding: 2rem;
         background: #f5fff1;
         border-radius: 10px;
         box-shadow: 0 0 15px rgba(0,0,0,0.05);
+    }
+    .stButton {
+        display: flex;
+        justify-content: center;
+        margin-top: 2rem;
     }
     .stButton>button {
         background-color: #4caf50;
@@ -30,9 +35,10 @@ st.markdown("""
         padding: 10px 24px;
         border-radius: 8px;
         font-size: 16px;
+        border: none;
     }
     .stButton>button:hover {
-        background-color: #3b8d3f;
+        background-color: #388e3c;
     }
     .title {
         text-align: center;
@@ -66,17 +72,22 @@ humidity = st.number_input("Humidity (%)", format="%.2f")
 ph = st.number_input("pH", format="%.2f")
 rainfall = st.number_input("Rainfall (mm)", format="%.2f")
 
-# Predict button
-if st.button("Predict"):
+# Predict Button
+centered_button = st.container()
+with centered_button:
+    submit = st.button("Predict")
+
+# Prediction
+if submit:
     features = np.array([[N, P, K, temp, humidity, ph, rainfall]])
     prediction = model.predict(features)
     crop_name = crop_dict.get(prediction[0], prediction[0])
 
-    # Image URL fallback (you can replace with local if hosted)
+    # Dynamic crop image
     image_url = f"https://source.unsplash.com/featured/?{crop_name},crop"
 
     st.markdown("---")
-    st.image(image_url, caption=f"{crop_name}", use_column_width=True)
+    st.image(image_url, caption=f"{crop_name}", use_container_width=True)
     st.markdown(f"""
         <div class="result">
             <strong>Recommended Crop for Cultivation:</strong><br>
@@ -85,4 +96,3 @@ if st.button("Predict"):
     """, unsafe_allow_html=True)
 
 st.markdown("</div>", unsafe_allow_html=True)
-
