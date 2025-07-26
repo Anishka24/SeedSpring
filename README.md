@@ -57,9 +57,10 @@ Anishka Singh
 🔗 GitHub
 
 Preview 
-**Main Website*: <img width="1782" height="915" alt="Screenshot 2025-07-26 214139" src="https://github.com/user-attachments/assets/2e07135f-fffb-4ecd-9a74-91ab3bd657de" />
+**Main Website*:<img width="1802" height="916" alt="image" src="https://github.com/user-attachments/assets/1fa65d21-7318-445f-8702-ee6357b47e21" />
 
-🌿 **Crop Recommendation App**: <img width="1289" height="893" alt="Screenshot 2025-07-26 214250" src="https://github.com/user-attachments/assets/ba6f205f-896f-4659-96f7-d4cb1e6e5fc0" />
+
+🌿 **Crop Recommendation App**: <img width="1488" height="962" alt="image" src="https://github.com/user-attachments/assets/2ced2fcc-d6df-40ad-946f-71ef92ef5822" />
 
 
 
