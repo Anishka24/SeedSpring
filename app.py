@@ -83,11 +83,7 @@ if submit:
     prediction = model.predict(features)
     crop_name = crop_dict.get(prediction[0], prediction[0])
 
-    # Dynamic crop image
-    image_url = f"https://source.unsplash.com/featured/?{crop_name},crop"
-
-    st.markdown("---")
-    st.image(image_url, caption=f"{crop_name}", use_container_width=True)
+   
     st.markdown(f"""
         <div class="result">
             <strong>Recommended Crop for Cultivation:</strong><br>
