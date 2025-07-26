@@ -1,65 +1,90 @@
 import streamlit as st
 import numpy as np
-import joblib  # or import your model loading method
+import pickle
 
-# Load your trained model
-model = joblib.load("crop_recommendation_model.pkl")  # change the path if needed
+# Load the model
+model = pickle.load(open("model.pkl", "rb"))
 
-# Crop label mapping (you can modify as per your model's classes)
+# Crop dictionary
 crop_dict = {
-    0: "Rice",
-    1: "Wheat",
-    2: "Maize",
-    3: "Cotton",
-    4: "Sugarcane",
-    5: "Barley",
-    6: "Groundnut",
-    7: "Millet",
-    8: "Pulses",
-    9: "Tobacco",
-    # Add more if needed...
+    1: "Rice", 2: "Maize", 3: "Jute", 4: "Cotton", 5: "Coconut", 6: "Papaya", 7: "Orange",
+    8: "Apple", 9: "Muskmelon", 10: "Watermelon", 11: "Grapes", 12: "Mango", 13: "Banana",
+    14: "Pomegranate", 15: "Lentil", 16: "Blackgram", 17: "Mungbean", 18: "Mothbeans",
+    19: "Pigeonpeas", 20: "Kidneybeans", 21: "Chickpea", 22: "Coffee"
 }
 
-# Streamlit App
-st.set_page_config(page_title="Crop Recommendation System", layout="centered")
+# CSS for centered layout and spacing
+st.markdown("""
+    <style>
+        .main-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 2rem 1rem 2rem;
+            background-color: white;
+            border-radius: 12px;
+        }
+        .stButton>button {
+            background-color: #2d6a4f;
+            color: white;
+            padding: 10px 24px;
+            font-size: 16px;
+            border-radius: 8px;
+            border: none;
+        }
+        .stButton>button:hover {
+            background-color: #225c3e;
+        }
+        .title-style {
+            text-align: center;
+            color: #2d6a4f;
+            font-weight: 700;
+            font-size: 2.2rem;
+        }
+        .emoji {
+            font-size: 2rem;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+    </style>
+""", unsafe_allow_html=True)
 
-st.markdown("🌱 # Crop Recommendation System")
-st.markdown("### Enter the soil and weather conditions:")
+# UI title
+st.markdown('<div class="main-container">', unsafe_allow_html=True)
+st.markdown('<h1 class="title-style"><span class="emoji">🌱</span>Crop Recommendation System</h1>', unsafe_allow_html=True)
+st.write("### Enter the soil and weather conditions:")
 
-# Input fields
-col1, col2, col3 = st.columns(3)
-with col1:
-    N = st.text_input("Nitrogen", placeholder="e.g. 90")
-with col2:
-    P = st.text_input("Phosphorus", placeholder="e.g. 40")
-with col3:
-    K = st.text_input("Potassium", placeholder="e.g. 60")
+# Form inputs
+with st.form("crop_form"):
+    col1, col2, col3 = st.columns(3)
+    with col1:
+        N = st.number_input("Nitrogen", placeholder="e.g. 90")
+    with col2:
+        P = st.number_input("Phosphorus",placeholder="e.g. 40")
+    with col3:
+        K = st.number_input("Potassium",placeholder="e.g. 60")
 
-col4, col5, col6 = st.columns(3)
-with col4:
-    temp = st.text_input("Temperature (°C)", placeholder="e.g. 25.5")
-with col5:
-    humidity = st.text_input("Humidity (%)", placeholder="e.g. 80")
-with col6:
-    ph = st.text_input("pH", placeholder="e.g. 6.5")
+    col4, col5, col6 = st.columns(3)
+    with col4:
+        temp = st.number_input("Temperature (°C)", format="%.2f", placeholder="e.g. 25.5")
+    with col5:
+        humidity = st.number_input("Humidity (%)", placeholder="e.g. 80")
+    with col6:
+        ph = st.number_input("pH", format="%.2f", placeholder="e.g. 6.5")
 
-rainfall = st.text_input("Rainfall (mm)", placeholder="e.g. 100")
+    rainfall = st.number_input("Rainfall (mm)", placeholder="e.g. 100")
 
-if st.button("Get Recommendation"):
-    try:
-        # Convert inputs to appropriate types
-        features = np.array([[
-            int(N), int(P), int(K),
-            float(temp), float(humidity),
-            float(ph), float(rainfall)
-        ]])
-        
-        # Predict crop
-        prediction = model.predict(features)
-        crop = crop_dict.get(prediction[0], "Unknown Crop")
-        
-        st.markdown("---")
+    submitted = st.form_submit_button("Get Recommendation")
+
+# Prediction logic
+if submitted:
+    features = np.array([[N, P, K, temp, humidity, ph, rainfall]])
+    prediction = model.predict(features)
+    crop = crop_dict.get(prediction[0], None)
+
+    st.markdown("---")
+    if crop:
         st.success(f"✅ **Recommended Crop:** {crop}")
-    
-    except ValueError:
-        st.error("🚫 Please enter valid numeric values in all fields.")
+    else:
+        st.error("⚠️ Sorry, we could not determine a suitable crop.")
+
+st.markdown("</div>", unsafe_allow_html=True)
