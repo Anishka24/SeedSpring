@@ -3,7 +3,7 @@ import pickle
 import numpy as np
 
 # Load model
-model = pickle.load(open(model.pkl, "rb"))
+model = pickle.load(open("model.pkl", "rb"))
 
 # Crop dictionary
 crop_dict = {
