@@ -57,14 +57,10 @@ Anishka Singh
 🔗 GitHub
 
 Preview 
-<img width="1802" height="916" alt="image" src="https://github.com/user-attachments/assets/1fa65d21-7318-445f-8702-ee6357b47e21" />
 
-
-<img width="1488" height="962" alt="image" src="https://github.com/user-attachments/assets/2ced2fcc-d6df-40ad-946f-71ef92ef5822" />
+<img width="1782" height="912" alt="image" src="https://github.com/user-attachments/assets/6fece4aa-2c43-447a-b1e5-d578f82d7f07" />
 
 
 
-📜 License
-This project is licensed under the MIT License.
 
 
