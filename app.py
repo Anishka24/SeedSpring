@@ -64,13 +64,13 @@ st.markdown('<div class="title">🌱 Crop Recommendation System</div>', unsafe_a
 st.write("### Enter soil and climate conditions:")
 
 # Inputs
-N = st.number_input("Nitrogen (e.g. 90)", value=0)
-P = st.number_input("Phosphorus (e.g. 40)", value=0)
-K = st.number_input("Potassium (e.g. 60)", value=0)
-temp = st.number_input("Temperature (°C)", format="%.2f")
-humidity = st.number_input("Humidity (%)", format="%.2f")
-ph = st.number_input("pH", format="%.2f")
-rainfall = st.number_input("Rainfall (mm)", format="%.2f")
+N = st.number_input("Nitrogen)
+P = st.number_input("Phosphorus)
+K = st.number_input("Potassium)
+temp = st.number_input("Temperature (°C)")
+humidity = st.number_input("Humidity (%)")
+ph = st.number_input("pH")
+rainfall = st.number_input("Rainfall (mm)")
 
 # Predict Button
 centered_button = st.container()
